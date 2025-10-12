@@ -1,0 +1,27 @@
+name: Check by linters
+
+on:
+  pull_request:
+  push:
+    branches: ["main"]
+
+jobs:
+  typos:
+    runs-on: ubuntu-latest
+    name: check misspelling by typos
+    steps:
+      - uses: actions/checkout@v5
+      - uses: cachix/install-nix-action@v31
+      - name: Run typos command
+        shell: nix shell nixpkgs#typos --quiet --command bash {0}
+        run: typos --hidden --exclude .git --format brief
+
+  biome-lint:
+    runs-on: ubuntu-latest
+    name: lint typescript code by biome
+    steps:
+      - uses: actions/checkout@v5
+      - uses: cachix/install-nix-action@v31
+      - name: Run biome lint command
+        shell: nix shell nixpkgs#biome --quiet --command bash {0}
+        run: biome lint
