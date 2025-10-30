@@ -1,10 +1,8 @@
 {
   "$schema": "https://biomejs.dev/schemas/latest/schema.json",
+  "formatter": { "indentStyle": "space" },
   "files": {
-    "includes": [
-      "./components/**",
-      "./entrypoints/**"
-    ]
+    "includes": ["./components/**", "./entrypoints/**"]
   },
   "linter": {
     "rules": {
