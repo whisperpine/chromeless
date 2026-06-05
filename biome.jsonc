@@ -1,8 +1,34 @@
 {
   "$schema": "https://biomejs.dev/schemas/latest/schema.json",
-  "formatter": { "indentStyle": "space" },
   "files": {
-    "includes": ["./components/**", "./entrypoints/**"]
+    "includes": [
+      "./**/*.ts",
+      "./**/*.js",
+      "./**/*.html",
+      "!!/nix/store",
+      "!!**/node_modules",
+      "!!**/dist",
+      "!!**/.output",
+      "!!**/.wxt"
+    ]
+  },
+  "formatter": {
+    "indentStyle": "space"
+  },
+  "css": {
+    "parser": {
+      "tailwindDirectives": true
+    }
+  },
+  "html": {
+    "parser": {
+      "interpolation": true
+    },
+    "formatter": {
+      "enabled": true,
+      "selfCloseVoidElements": "always",
+      "whitespaceSensitivity": "ignore"
+    }
   },
   "linter": {
     "rules": {
@@ -22,13 +48,6 @@
         },
         "useGraphqlNamingConvention": "warn",
         "useFilenamingConvention": "error"
-      }
-    }
-  },
-  "assist": {
-    "actions": {
-      "source": {
-        "organizeImports": "on"
       }
     }
   }
