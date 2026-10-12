@@ -16,6 +16,22 @@ jobs:
         shell: nix shell nixpkgs#typos --quiet --command bash {0}
         run: typos --hidden --exclude .git --format brief
 
+  tsc:
+    runs-on: ubuntu-latest
+    name: check compilation by tsc
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/cache@v6
+        with:
+          path: ~/.bun/install/cache
+          key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lock') }}
+      - uses: cachix/install-nix-action@v31
+      - name: Run typos command
+        shell: nix shell nixpkgs#bun --quiet --command bash {0}
+        run: |
+          bun install
+          ./node_modules/.bin/tsc --noEmit
+
   biome-check:
     runs-on: ubuntu-latest
     name: check typescript code by biome
